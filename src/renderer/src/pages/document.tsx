@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { Document as IPCDocument } from "@shared/types/ipc";
 import { Editor, OnContentUpdatedParams } from "../components/Editor";
-import { ToC } from "../components/ToC";
+// import { ToC } from "../components/ToC";
 
 export function Document() {
   const { id } = useParams<{ id: string }>();
@@ -32,6 +32,11 @@ export function Document() {
             return document;
           });
         });
+
+        queryClient.setQueryData<IPCDocument>(["document"], (document) => {
+          if (document) return { ...document, title };
+          return { title, content, id: id! };
+        });
       },
     }
   );
@@ -56,7 +61,7 @@ export function Document() {
 
   return (
     <main className="flex-1 flex py-12 px-10 gap-8">
-      <aside className="hidden lg:block sticky top-0">
+      {/* <aside className="hidden lg:block sticky top-0">
         <span className="text-rotion-300 font-semibold text-xs">
           TABLE OF CONTENTS
         </span>
@@ -68,7 +73,7 @@ export function Document() {
             <ToC.Link>Autenticação</ToC.Link>
           </ToC.Section>
         </ToC.Root>
-      </aside>
+      </aside> */}
 
       <section className="flex-1 flex-col items-center">
         {!isFetchingDocument && document && (

@@ -16,6 +16,7 @@ function createWindow(): void {
     width: 1200,
     height: 700,
     show: false,
+    title: "Rotion",
     autoHideMenuBar: true,
     backgroundColor: "#17141f",
     titleBarStyle: "hiddenInset",

@@ -2,13 +2,15 @@ import clsx from "clsx";
 import { DotsThree } from "phosphor-react";
 import { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
+import { DropdownMenuDocument } from "../../DropdownMenuDocument";
 
 interface LinkProps {
   children: ReactNode;
   to: string;
+  documentId: string;
 }
 
-export function Link({ children, to }: LinkProps) {
+export function Link({ children, to, documentId }: LinkProps) {
   return (
     <NavLink
       to={to}
@@ -23,12 +25,17 @@ export function Link({ children, to }: LinkProps) {
     >
       <span className="truncate flex-1">{children}</span>
 
-      <div className="flex items-center h-full group-hover:visible ml-auto text-rotion-100">
-        <button className="px-px rounded-sm hover:bg-rotion-500">
-          <DotsThree weight="bold" className="h-4 w-4" />
-          {""}
-        </button>
-      </div>
+      <DropdownMenuDocument
+        trigger={
+          <div className="flex items-center h-full group-hover:visible ml-auto text-rotion-100">
+            <button className="px-px rounded-sm hover:bg-rotion-500">
+              <DotsThree weight="bold" className="h-4 w-4" />
+              {""}
+            </button>
+          </div>
+        }
+        documentId={documentId}
+      />
     </NavLink>
   );
 }

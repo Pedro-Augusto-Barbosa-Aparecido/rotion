@@ -1,37 +1,39 @@
-import { BrowserWindow, Menu, Tray } from "electron";
+import { app, BrowserWindow, Menu, Tray } from "electron";
 import path from "node:path";
 
 export function createTray(window: BrowserWindow) {
   const tray = new Tray(path.resolve(__dirname, "rotionTemplate.png"));
 
+  app.setAboutPanelOptions({
+    applicationName: "Rotion",
+    applicationVersion: process.version,
+    version: process.version,
+    iconPath: path.resolve(__dirname, "icon.png"),
+    credits: "Made by Pedro Augusto Barbosa",
+    website: "https://github.com/Pedro-Augusto-Barbosa-Aparecido",
+    authors: ["https://github.com/Pedro-Augusto-Barbosa-Aparecido"],
+    copyright: "Copyright © https://github.com/Pedro-Augusto-Barbosa-Aparecido",
+  });
+
   const menu = Menu.buildFromTemplate([
     { label: "Rotion", enabled: false },
     { type: "separator" },
     {
-      label: "Criar novo documento",
+      label: "New Document",
       click: () => {
         window.webContents.send("new-document");
       },
     },
     { type: "separator" },
-    { label: "Documentos Recentes", enabled: false },
     {
-      label: "Discover",
-      accelerator: "CommandOrControl+1",
-      acceleratorWorksWhenHidden: false,
+      label: "Options",
+      enabled: false,
     },
     {
-      label: "Ignite",
-      accelerator: "CommandOrControl+2",
-      acceleratorWorksWhenHidden: false,
+      label: "Quit App",
+      role: "quit",
     },
-    {
-      label: "Rocketseat",
-      accelerator: "CommandOrControl+3",
-      acceleratorWorksWhenHidden: false,
-    },
-    { type: "separator" },
-    { label: "Sair", role: "quit" },
+    { label: "About", role: "about" },
   ]);
 
   tray.setContextMenu(menu);

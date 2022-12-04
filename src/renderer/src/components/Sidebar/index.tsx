@@ -57,6 +57,7 @@ export function Sidebar() {
                   <Navigation.Link
                     to={`documents/${document.id}`}
                     key={document.id}
+                    documentId={document.id}
                   >
                     {document.title}
                   </Navigation.Link>

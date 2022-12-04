@@ -4,8 +4,7 @@ import * as Breadcrumbs from "./Breadcrumbs";
 
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../../lib/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Document } from "@shared/types/ipc";
 
 interface HeaderProps {
@@ -18,6 +17,7 @@ export function Header({ isSideBarOpen }: HeaderProps) {
 
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { mutateAsync: deleteDocument, isLoading: isDeletingDocument } =
     useMutation(
@@ -33,6 +33,11 @@ export function Header({ isSideBarOpen }: HeaderProps) {
         },
       }
     );
+
+  const { data: document } = useQuery(["document", id], async () => {
+    const response = await window.api.fetchDocument({ id: id! });
+    return response.data;
+  });
 
   return (
     <div
@@ -60,14 +65,8 @@ export function Header({ isSideBarOpen }: HeaderProps) {
           <Breadcrumbs.Root>
             <Breadcrumbs.Item>
               <Code weight="bold" className="h-4 w-4 text-pink-500" />
-              Estrutura técnica
+              {document?.title}
             </Breadcrumbs.Item>
-            <Breadcrumbs.Separator />
-            <Breadcrumbs.HiddenItems />
-            <Breadcrumbs.Separator />
-            <Breadcrumbs.Item>Back-end</Breadcrumbs.Item>
-            <Breadcrumbs.Separator />
-            <Breadcrumbs.Item isActive>Untitled</Breadcrumbs.Item>
           </Breadcrumbs.Root>
 
           <div className="inline-flex region-no-drag">
