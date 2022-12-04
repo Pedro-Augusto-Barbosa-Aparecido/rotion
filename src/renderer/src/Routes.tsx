@@ -9,7 +9,7 @@ export function AppRoutes() {
       main={
         <Route path="/" element={<Default />}>
           <Route path="/" element={<BlankPage />} />
-          <Route path="/document" element={<Document />} />
+          <Route path="/documents/:id" element={<Document />} />
         </Route>
       }
     />

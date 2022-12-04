@@ -5,11 +5,14 @@ import { createFileRoute, createURLRoute } from "electron-router-dom";
 
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 
+import "./ipc";
+import "./store";
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1200,
+    height: 700,
     show: false,
     autoHideMenuBar: true,
     backgroundColor: "#17141f",
@@ -18,9 +21,9 @@ function createWindow(): void {
       x: 20,
       y: 20,
     },
-    ...(process.platform === "linux"
+    ...(process.platform === "linux" || process.platform === "win32"
       ? {
-          icon: path.join(__dirname, "../../build/icon.png"),
+          icon: path.resolve(__dirname, "icon.png"),
         }
       : {}),
     webPreferences: {
