@@ -4,9 +4,11 @@ import * as path from "node:path";
 import { createFileRoute, createURLRoute } from "electron-router-dom";
 
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+import { createTray } from "./tray";
 
 import "./ipc";
 import "./store";
+import { createShortcuts } from "./shortcuts";
 
 function createWindow(): void {
   // Create the browser window.
@@ -21,7 +23,7 @@ function createWindow(): void {
       x: 20,
       y: 20,
     },
-    ...(process.platform === "linux" || process.platform === "win32"
+    ...(process.platform === "linux"
       ? {
           icon: path.resolve(__dirname, "icon.png"),
         }
@@ -31,6 +33,9 @@ function createWindow(): void {
       sandbox: false,
     },
   });
+
+  createTray(mainWindow);
+  createShortcuts(mainWindow);
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();

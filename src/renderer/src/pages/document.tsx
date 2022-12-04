@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { Document as IPCDocument } from "~/src/shared/types/ipc";
+import { Document as IPCDocument } from "@shared/types/ipc";
 import { Editor, OnContentUpdatedParams } from "../components/Editor";
 import { ToC } from "../components/ToC";
 
