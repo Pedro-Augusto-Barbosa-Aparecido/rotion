@@ -2,7 +2,7 @@
   "name": "rotion",
   "productName": "Rotion",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Notion free option written with Electron+React",
   "main": "./out/main/index.js",
   "author": "Pedro-Augusto-Barbosa-Aparecido<pedro007augustobarbosa@gmail.com>",
