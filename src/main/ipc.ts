@@ -11,6 +11,7 @@ import {
   FetchDocumentRequest,
   FetchDocumentResponse,
   SaveDocumentRequest,
+  SaveChildDocument,
 } from "@shared/types/ipc";
 import { store } from "./store";
 
@@ -68,5 +69,34 @@ ipcMain.handle(
   async (_, { id }: DeleteDocumentRequest): Promise<void> => {
     // @ts-ignore (https://github.com/sindresorhus/electron-store/issues/196)
     store.delete(`documents.${id}`);
+  }
+);
+
+ipcMain.handle(
+  IPC.DOCUMENTS.CREATE_CHILD,
+  async (
+    _,
+    { parentId }: SaveChildDocument
+  ): Promise<CreateDocumentResponse> => {
+    const id = randomUUID();
+
+    const document = {
+      id,
+      title: "Untitled",
+      parentDocument: parentId,
+    } as Document;
+
+    const parent = store.get(`documents.${parentId}`) as Document;
+    if (parent.children) {
+      parent.children.push(document);
+    } else {
+      parent.children = [document];
+    }
+
+    store.set(`documents.${parentId}`, parent);
+
+    return {
+      data: parent,
+    };
   }
 );

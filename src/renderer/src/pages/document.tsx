@@ -33,9 +33,8 @@ export function Document() {
           });
         });
 
-        queryClient.setQueryData<IPCDocument>(["document"], (document) => {
-          if (document) return { ...document, title };
-          return { title, content, id: id! };
+        queryClient.setQueriesData<IPCDocument>(["document"], (data) => {
+          if (data) return { ...data, title };
         });
       },
     }

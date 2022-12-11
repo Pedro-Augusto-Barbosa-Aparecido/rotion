@@ -34,7 +34,7 @@ export function Header({ isSideBarOpen }: HeaderProps) {
       }
     );
 
-  const { data: document } = useQuery(["document", id], async () => {
+  const { data: document } = useQuery(["document", id ?? ""], async () => {
     const response = await window.api.fetchDocument({ id: id! });
     return response.data;
   });

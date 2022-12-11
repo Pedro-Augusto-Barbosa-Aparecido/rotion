@@ -2,6 +2,8 @@ export interface Document {
   id: string;
   title: string;
   content?: string;
+  parentDocument?: string;
+  children?: Document[];
 }
 
 /**
@@ -16,6 +18,10 @@ export interface FetchDocumentRequest {
 
 export interface DeleteDocumentRequest {
   id: string;
+}
+
+export interface SaveChildDocument {
+  parentId: string;
 }
 
 /**

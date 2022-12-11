@@ -6,6 +6,7 @@ import {
   FetchAllDocumentsResponse,
   FetchDocumentRequest,
   FetchDocumentResponse,
+  SaveChildDocument,
   SaveDocumentRequest,
 } from "@shared/types/ipc";
 
@@ -31,6 +32,12 @@ const api = {
 
   saveDocument(request: SaveDocumentRequest): Promise<void> {
     return ipcRenderer.invoke(IPC.DOCUMENTS.SAVE, request);
+  },
+
+  saveChildDocument(
+    request: SaveChildDocument
+  ): Promise<CreateDocumentResponse> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.CREATE_CHILD, request);
   },
 
   deleteDocument(request: DeleteDocumentRequest): Promise<void> {

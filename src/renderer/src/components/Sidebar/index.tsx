@@ -54,13 +54,27 @@ export function Sidebar() {
             <Navigation.SectionContent>
               {data?.map((document) => {
                 return (
-                  <Navigation.Link
-                    to={`documents/${document.id}`}
-                    key={document.id}
-                    documentId={document.id}
-                  >
-                    {document.title}
-                  </Navigation.Link>
+                  <div key={document.id}>
+                    <Navigation.Link
+                      to={`documents/${document.id}`}
+                      key={document.id}
+                      documentId={document.id}
+                    >
+                      {document.title}
+                    </Navigation.Link>
+                    {document.children &&
+                      document.children?.map((childDocument) => {
+                        return (
+                          <Navigation.Link
+                            to={`documents/${childDocument.id}`}
+                            key={childDocument.id}
+                            documentId={childDocument.id}
+                          >
+                            {childDocument.title}
+                          </Navigation.Link>
+                        );
+                      })}
+                  </div>
                 );
               })}
             </Navigation.SectionContent>
